@@ -2,12 +2,12 @@ import React, { useRef } from 'react';
 import "./styles.css";
 
 interface Props{
-    todo: string;
-    setTodo: React.Dispatch<React.SetStateAction<string>>;
+    player: string;
+    setPlayer: React.Dispatch<React.SetStateAction<string>>;
     handleAdd: (e: React.FormEvent) => void;
 }
 
-const InputField: React.FC<Props> = ({ todo, setTodo, handleAdd }: Props) => {
+const InputField: React.FC<Props> = ({ player, setPlayer, handleAdd }: Props) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return ( 
@@ -19,13 +19,13 @@ const InputField: React.FC<Props> = ({ todo, setTodo, handleAdd }: Props) => {
             <input 
                 ref={inputRef}
                 type='input'
-                value={todo}
-                onChange={(e) => setTodo(e.target.value)}
-                placeholder='Enter a task' 
+                value={player}
+                onChange={(e) => setPlayer(e.target.value)}
+                placeholder='Player Name' 
                 className='input__box' 
             />
         <button className='input_submit' type='submit'>
-            Go
+            Add
         </button>
     </form>
     );

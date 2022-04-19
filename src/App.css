@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 .App {
   width: 100vw;
@@ -6,8 +6,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #2f74c0;
-  font-family: "Neucha", cursive;
+  background-color: #000000;
+  font-family: 'Press Start 2P', cursive;
 }
 
 .heading {

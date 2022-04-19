@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import './App.css';
 import InputField from './components/InputField';
-import TodoList from './components/TodoList';
-import { Todo } from './model';
+import PlayersList from './components/PlayersList';
+import { Player } from './model';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
+import { Grid } from '@mui/material';
 
 const App: React.FC = () => {
 
-  const [todo, setTodo] = useState<string>("");
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
+  const [player, setPlayer] = useState<string>("");
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [completedPlayers, setCompletedPlayers] = useState<Player[]>([]);
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (todo) {
-      setTodos([...todos, { id: Date.now(), todo, isDone: false}])
-      setTodo("");
+    if (player) {
+      setPlayers([...players, { id: Date.now(), player, isDone: false}])
+      setPlayer("");
     }
   };
   
@@ -37,8 +38,8 @@ const App: React.FC = () => {
     }
 
     let add;
-    let active = todos;
-    let complete = completedTodos;
+    let active = players;
+    let complete = completedPlayers;
     // Source Logic
     if (source.droppableId === "TodosList") {
       add = active[source.index];
@@ -55,24 +56,31 @@ const App: React.FC = () => {
       complete.splice(destination.index, 0, add);
     }
 
-    setCompletedTodos(complete);
-    setTodos(active);
+    setCompletedPlayers(complete);
+    setPlayers(active);
   };
   
 
   return(
+    <Grid>
+    
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="App">
-      <span className="heading">Taskify</span>
-      <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
-      <TodoList 
-        todos={todos} 
-        setTodos={setTodos} 
-        completedTodos={completedTodos}
-        setCompletedTodos={setCompletedTodos}
+      
+      <span className="heading">NHL FANTASY</span>
+      <InputField player={player} setPlayer={setPlayer} handleAdd={handleAdd} />
+      <PlayersList 
+        players={players} 
+        setPlayers={setPlayers} 
+        completedPlayers={completedPlayers}
+        setCompletedPlayers={setCompletedPlayers}
       />
+      
     </div> 
     </DragDropContext>
+    
+    </Grid>
+    
     
   );
 };

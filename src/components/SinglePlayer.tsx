@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Todo } from '../model';
+import { Player } from '../model';
 import { AiFillEdit, AiFillDelete, } from 'react-icons/ai';
 import { MdDone } from 'react-icons/md';
 import { Draggable } from "react-beautiful-dnd";
@@ -7,37 +7,35 @@ import './styles.css';
 
 type Props = {
     index: number;
-    todo: Todo,
-    todos:Todo[],
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+    player: Player,
+    players:Player[],
+    setPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
 };
 
-const SingleTodo = ({ index, todo, todos, setTodos }: Props) => {
+const SinglePlayer = ({ index, player, players, setPlayers }: Props) => {
 
     const [edit, setEdit] = useState<boolean>(false);
-    const [editTodo, setEditTodo] = useState<string>(todo.todo);
-
-    
+    const [editPlayer, setEditPlayer] = useState<string>(player.player);
     
 
     const handleDone = (id:number) => {
-        setTodos(
-            todos.map((todo) => 
-                todo.id===id ? {...todo, isDone: !todo.isDone} : todo
+        setPlayers(
+            players.map((player) => 
+                player.id===id ? {...player, isDone: !player.isDone} : player
             )
         );
     };
 
     const handleDelete = (id:number) => {
-        setTodos(
-            todos.filter((todo) => todo.id !== id));
+        setPlayers(
+            players.filter((player) => player.id !== id));
     };
 
     const handleEdit = (e: React.FormEvent, id:number) => {
         e.preventDefault();
 
-        setTodos(
-            todos.map((todo) => (todo.id === id ? { ...todo, todo:editTodo}:todo))
+        setPlayers(
+            players.map((player) => (player.id === id ? { ...player, player:editPlayer}:player))
         );
         setEdit(false);
     };
@@ -49,10 +47,10 @@ const SingleTodo = ({ index, todo, todos, setTodos }: Props) => {
     }, [edit]);
 
     return (
-        <Draggable draggableId={todo.id.toString()} index={index}>
+        <Draggable draggableId={player.id.toString()} index={index}>
           {(provided, snapshot) => (
             <form
-              onSubmit={(e) => handleEdit(e, todo.id)}
+              onSubmit={(e) => handleEdit(e, player.id)}
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
@@ -60,31 +58,31 @@ const SingleTodo = ({ index, todo, todos, setTodos }: Props) => {
             >
               {edit ? (
                 <input
-                  value={editTodo}
-                  onChange={(e) => setEditTodo(e.target.value)}
+                  value={editPlayer}
+                  onChange={(e) => setEditPlayer(e.target.value)}
                   className="todos__single--text"
                   ref={inputRef}
                 />
-              ) : todo.isDone ? (
-                <s className="todos__single--text">{todo.todo}</s>
+              ) : player.isDone ? (
+                <s className="todos__single--text">{player.player}</s>
               ) : (
-                <span className="todos__single--text">{todo.todo}</span>
+                <span className="todos__single--text">{player.player}</span>
               )}
               <div>
                 <span
                   className="icon"
                   onClick={() => {
-                    if (!edit && !todo.isDone) {
+                    if (!edit && !player.isDone) {
                       setEdit(!edit);
                     }
                   }}
                 >
                   <AiFillEdit />
                 </span>
-                <span className="icon" onClick={() => handleDelete(todo.id)}>
+                <span className="icon" onClick={() => handleDelete(player.id)}>
                   <AiFillDelete />
                 </span>
-                <span className="icon" onClick={() => handleDone(todo.id)}>
+                <span className="icon" onClick={() => handleDone(player.id)}>
                   <MdDone />
                 </span>
               </div>
@@ -94,4 +92,4 @@ const SingleTodo = ({ index, todo, todos, setTodos }: Props) => {
       );
 };
 
-export default SingleTodo;
+export default SinglePlayer;

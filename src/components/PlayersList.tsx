@@ -1,17 +1,17 @@
 import React from 'react';
-import { Todo } from '../model';
-import SingleTodo from './SingleTodo';
+import { Player } from '../model';
+import SingleTodo from './SinglePlayer';
 import "./styles.css";
 import { Droppable } from "react-beautiful-dnd";
 
 interface Props{
-    todos: Todo[];
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-    completedTodos: Todo[];
-    setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+    players: Player[];
+    setPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
+    completedPlayers: Player[];
+    setCompletedPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
 }
 
-const TodoList: React.FC<Props> = ({ todos, setTodos, completedTodos, setCompletedTodos }) => {
+const PlayersList: React.FC<Props> = ({ players, setPlayers, completedPlayers, setCompletedPlayers }) => {
   return (
       <div className='container'>
           <Droppable droppableId="TodosList">
@@ -21,14 +21,14 @@ const TodoList: React.FC<Props> = ({ todos, setTodos, completedTodos, setComplet
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-                    <span className="todos__heading">Active Tasks</span>
-                        {todos?.map((todo, index) => (
+                    <span className="todos__heading">Current Team</span>
+                        {players?.map((player, index) => (
                         <SingleTodo
                             index={index}
-                            todos={todos}
-                            todo={todo}
-                            key={todo.id}
-                            setTodos={setTodos}
+                            players={players}
+                            player={player}
+                            key={player.id}
+                            setPlayers={setPlayers}
                         />
                         ))}
                         {provided.placeholder}
@@ -46,14 +46,14 @@ const TodoList: React.FC<Props> = ({ todos, setTodos, completedTodos, setComplet
                         snapshot.isDraggingOver ? "dragcomplete" : "remove"
                         }`}
                     >
-                        <span className="todos__heading">Completed Tasks</span>
-                            {completedTodos.map((todo, index) => (
+                        <span className="todos__heading">Former Players</span>
+                            {completedPlayers.map((player, index) => (
                             <SingleTodo
                                 index={index}
-                                todos={completedTodos}
-                                todo={todo}
-                                key={todo.id}
-                                setTodos={setCompletedTodos}
+                                players={completedPlayers}
+                                player={player}
+                                key={player.id}
+                                setPlayers={setCompletedPlayers}
                             />
                             ))}
                             {provided.placeholder}
@@ -66,4 +66,4 @@ const TodoList: React.FC<Props> = ({ todos, setTodos, completedTodos, setComplet
   );
 };
 
-export default TodoList;
+export default PlayersList;
