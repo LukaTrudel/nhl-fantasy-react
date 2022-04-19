@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import InputField from './components/InputField';
 import PlayersList from './components/PlayersList';
+import Header from './components/Header';
 import { Player } from './model';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { Grid } from '@mui/material';
@@ -67,7 +68,7 @@ const App: React.FC = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="App">
       
-      <span className="heading">NHL FANTASY</span>
+      <Header />
       <InputField player={player} setPlayer={setPlayer} handleAdd={handleAdd} />
       <PlayersList 
         players={players} 
